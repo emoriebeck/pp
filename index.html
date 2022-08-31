@@ -1,0 +1,519 @@
+<!doctype html>
+<html>
+  <head>
+    <title>template</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="jspsych-5.0.3/jspsych.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-text.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-likert.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-checkbox.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-matrix.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-text.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-html-button-response.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-instructions.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-text-timed.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-text-single.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-call-function.js"></script>
+    <script src="PapaParse-4.3.2/papaparse.js"></script>
+    <script src="jquery-csv-master/src/jquery.csv.js"></script>
+    <script src="jquery-csv-master/src/jquery.csv.min.js"></script>
+    <script src="PapaParse-4.3.2/papaparse.min.js"></script>
+    <link href="jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+  </head>
+  <body>
+  </body>
+  <script>
+
+  // generate a random subject ID
+  // var SID_name = Math.floor(Math.random()*100000);
+  SID_name = "template";
+
+
+  /* define welcome message block */
+  // defining groups of questions that will go together.
+
+
+
+    /* Define extraversion items */
+    var Extra_Qs = [
+      { questions: "Was outgoing, sociable.",
+        data: {item: 'E1', type: 'BFI2', trait: 'extraversion', facet: 'Sociability'}},
+      { questions: "Was talkative.",
+        data: {item: 'E2', type: 'BFI2', trait: 'extraversion', facet: 'Sociability'}},
+      { questions: "Tended to be quiet.",
+        data: {item: 'E3', type: 'BFI2', trait: 'extraversion', facet: 'Sociability'}},
+      { questions: "Was shy, introverted.",
+        data: {item: 'E4', type: 'BFI2', trait: 'extraversion', facet: 'Sociability'}},
+      { questions: "Had an assertive personality.",
+        data: {item: 'E5', type: 'BFI2', trait: 'extraversion', facet: 'Assertiveness'}},
+      { questions: "Was dominant, acted as a leader.",
+        data: {item: 'E6', type: 'BFI2', trait: 'extraversion', facet: 'Assertiveness'}},
+      { questions: "Found it hard to influence people.",
+        data: {item: 'E7', type: 'BFI2', trait: 'extraversion', facet: 'Assertiveness'}},
+      { questions: "Preferred to have others take charge.",
+        data: {item: 'E8', type: 'BFI2', trait: 'extraversion', facet: 'Assertiveness'}},
+      { questions: "Was full of energy.",
+        data: {item: 'E9', type: 'BFI2', trait: 'extraversion', facet: 'Energy Level'}},
+      { questions: "Showed a lot of enthusiasm.",
+        data: {item: 'E10', type: 'BFI2', trait: 'extraversion', facet: 'Energy Level'}},
+      { questions: "Rarely felt excited or eager.",
+        data: {item: 'E11', type: 'BFI2', trait: 'extraversion', facet: 'Energy Level'}},
+      { questions: "Was less active than other people.",
+        data: {item: 'E12', type: 'BFI2', trait: 'extraversion', facet: 'Energy Level'}}
+    ];
+    /* Define agreeableness items */
+    var Agree_Qs = [
+      { questions: "Was compassionate, had a soft heart.",
+        data: {item: 'A1', type: 'BFI2', trait: 'agreeableness', facet: 'Compassion'}},
+      { questions: "Was helpful and unselfish with others.",
+        data: {item: 'A2', type: 'BFI2', trait: 'agreeableness', facet: 'Compassion'}},
+      { questions: "Felt little sympathy for others.",
+        data: {item: 'A3', type: 'BFI2', trait: 'agreeableness', facet: 'Compassion'}},
+      { questions: "Was cold and uncaring.",
+        data: {item: 'A4', type: 'BFI2', trait: 'agreeableness', facet: 'Compassion'}},
+      { questions: "Was respectful, treated others with respect.",
+        data: {item: 'A5', type: 'BFI2', trait: 'agreeableness', facet: 'Respectfulness'}},
+      { questions: "Was polite, courteous to others.",
+        data: {item: 'A6', type: 'BFI2', trait: 'agreeableness', facet: 'Respectfulness'}},
+      { questions: "Started arguments with others.",
+        data: {item: 'A7', type: 'BFI2', trait: 'agreeableness', facet: 'Respectfulness'}},
+      { questions: "Was rude to others.",
+        data: {item: 'A8', type: 'BFI2', trait: 'agreeableness', facet: 'Respectfulness'}},
+      { questions: "Had a forgiving nature.",
+        data: {item: 'A9', type: 'BFI2', trait: 'agreeableness', facet: 'Trust'}},
+      { questions: "Assumed the best about people.",
+        data: {item: 'A10', type: 'BFI2', trait: 'agreeableness', facet: 'Trust'}},
+      { questions: "Found fault with others.",
+        data: {item: 'A11', type: 'BFI2', trait: 'agreeableness', facet: 'Trust'}},
+      { questions: "Was suspicious of others' intentions.",
+        data: {item: 'A12', type: 'BFI2', trait: 'agreeableness', facet: 'Trust'}}
+    ];
+    /* Define conscientiousness items */
+    var Consc_Qs = [
+      { questions: "Was systematic, kept things in order.",
+        data: {item: 'C1', type: 'BFI2', trait: 'conscientiousness', facet: 'Organization'}},
+      { questions: "Kept things neat and tidy.",
+        data: {item: 'C2', type: 'BFI2', trait: 'conscientiousness', facet: 'Organization'}},
+      { questions: "Was disorganized.",
+        data: {item: 'C3', type: 'BFI2', trait: 'conscientiousness', facet: 'Organization'}},
+      { questions: "Left a mess, didn't clean up.",
+        data: {item: 'C4', type: 'BFI2', trait: 'conscientiousness', facet: 'Organization'}},
+      { questions: "Was efficient, got things done.",
+        data: {item: 'C5', type: 'BFI2', trait: 'conscientiousness', facet: 'Productiveness'}},
+      { questions: "Was persistent, worked until the task was finished.",
+        data: {item: 'C6', type: 'BFI2', trait: 'conscientiousness', facet: 'Productiveness'}},
+      { questions: "Was lazy.",
+        data: {item: 'C7', type: 'BFI2', trait: 'conscientiousness', facet: 'Productiveness'}},
+      { questions: "Had difficulty getting started on tasks.",
+        data: {item: 'C8', type: 'BFI2', trait: 'conscientiousness', facet: 'Productiveness'}},
+      { questions: "Was dependable, steady.",
+        data: {item: 'C9', type: 'BFI2', trait: 'conscientiousness', facet: 'Responsibility'}},
+      { questions: "Was reliable, could be counted on.",
+        data: {item: 'C10', type: 'BFI2', trait: 'conscientiousness', facet: 'Responsibility'}},
+      { questions: "Was somewhat careless.",
+        data: {item: 'C11', type: 'BFI2', trait: 'conscientiousness', facet: 'Responsibility'}},
+      { questions: "Behaved irresponsibly.",
+        data: {item: 'C12', type: 'BFI2', trait: 'conscientiousness', facet: 'Responsibility'}}
+    ];
+    /* Define neuroticism items */
+    var Neuro_Qs = [
+      { questions: "Was tense.",
+        data: {item: 'N1', type: 'BFI2', trait: 'neuroticism', facet: 'Anxiety'}},
+      // { questions: "Worried a lot.",
+      //   data: {item: 'N2', type: 'BFI2', trait: 'neuroticism', facet: 'Anxiety'}},
+      { questions: "Was relaxed, handled stress well.",
+        data: {item: 'N3', type: 'BFI2', trait: 'neuroticism', facet: 'Anxiety'}},
+      { questions: "Rarely felt anxious or afraid.",
+        data: {item: 'N4', type: 'BFI2', trait: 'neuroticism', facet: 'Anxiety'}},
+      // { questions: "Often felt sad.",
+      //   data: {item: 'N5', type: 'BFI2', trait: 'neuroticism', facet: 'Depression'}},
+      { questions: "Tends to felt depressed, blue.",
+        data: {item: 'N6', type: 'BFI2', trait: 'neuroticism', facet: 'Depression'}},
+      { questions: "Stayed optimistic after experiencing a setback.",
+        data: {item: 'N7', type: 'BFI2', trait: 'neuroticism', facet: 'Depression'}},
+      { questions: "Felt secure, comfortable with myself.",
+        data: {item: 'N8', type: 'BFI2', trait: 'neuroticism', facet: 'Depression'}},
+      { questions: "Was moody, had up and down mood swings.",
+        data: {item: 'N9', type: 'BFI2', trait: 'neuroticism', facet: 'Emotional Volatility'}},
+      { questions: "Was temperamental, got emotional easily.",
+        data: {item: 'N10', type: 'BFI2', trait: 'neuroticism', facet: 'Emotional Volatility'}},
+      { questions: "Was emotionally stable, not easily upset.",
+        data: {item: 'N11', type: 'BFI2', trait: 'neuroticism', facet: 'Emotional Volatility'}},
+      { questions: "Kept my emotions under control.",
+        data: {item: 'N12', type: 'BFI2', trait: 'neuroticism', facet: 'Emotional Volatility'}}
+    ];
+    /* Define openness items */
+    var Openn_Qs = [
+      { questions: "Was curious about many different things.",
+        data: {item: 'O1', type: 'BFI2', trait: 'openness', facet: 'Intellectual Curiosity'}},
+      { questions: "Was complex, a deep thinker.",
+        data: {item: 'O2', type: 'BFI2', trait: 'openness', facet: 'Intellectual Curiosity'}},
+      { questions: "Avoided intellectual, philosophical discussions.",
+        data: {item: 'O3', type: 'BFI2', trait: 'openness', facet: 'Intellectual Curiosity'}},
+      { questions: "Had little interest in abstract ideas.",
+        data: {item: 'O4', type: 'BFI2', trait: 'openness', facet: 'Intellectual Curiosity'}},
+      { questions: "Was fascinated by art, music, or literature.",
+        data: {item: 'O5', type: 'BFI2', trait: 'openness', facet: 'Aesthetic Sensitivity'}},
+      { questions: "Valued art and beauty.",
+        data: {item: 'O6', type: 'BFI2', trait: 'openness', facet: 'Aesthetic Sensitivity'}},
+      { questions: "Had few artistic interests.",
+        data: {item: 'O7', type: 'BFI2', trait: 'openness', facet: 'Aesthetic Sensitivity'}},
+      { questions: "Thought poetry and plays are boring.",
+        data: {item: 'O8', type: 'BFI2', trait: 'openness', facet: 'Aesthetic Sensitivity'}},
+      { questions: "Was inventive, found clever ways to do things.",
+        data: {item: 'O9', type: 'BFI2', trait: 'openness', facet: 'Creative Imagination'}},
+      { questions: "Was original, came up with new ideas.",
+        data: {item: 'O10', type: 'BFI2', trait: 'openness', facet: 'Creative Imagination'}},
+      { questions: "Had little creativity.",
+        data: {item: 'O11', type: 'BFI2', trait: 'openness', facet: 'Creative Imagination'}},
+      { questions: "Had difficulty imagining things.",
+        data: {item: 'O12', type: 'BFI2', trait: 'openness', facet: 'Creative Imagination'}}
+    ];
+
+    /* Define openness items */
+    var unique_Qs = [
+      { questions: "INSERTTEXT1",
+        data: {item: 'U1', type: 'unique', trait: 'INSERTTRAIT1', facet: 'INSERTFACET1'}},
+      { questions: "INSERTTEXT2",
+        data: {item: 'U2', type: 'unique', trait: 'INSERTTRAIT2', facet: 'INSERTFACET2'}},
+      { questions: "INSERTTEXT3",
+        data: {item: 'U3', type: 'unique', trait: 'INSERTTRAIT3', facet: 'INSERTFACET3'}},
+      { questions: "INSERTTEXT4",
+        data: {item: 'U4', type: 'unique', trait: 'INSERTTRAIT4', facet: 'INSERTFACET4'}},
+      { questions: "INSERTTEXT5",
+        data: {item: 'U5', type: 'unique', trait: 'INSERTTRAIT5', facet: 'INSERTFACET5'}},
+      { questions: "INSERTTEXT6",
+        data: {item: 'U6', type: 'unique', trait: 'INSERTTRAIT6', facet: 'INSERTFACET6'}},
+      { questions: "INSERTTEXT7",
+        data: {item: 'U7', type: 'unique', trait: 'INSERTTRAIT7', facet: 'INSERTFACET7'}},
+      { questions: "INSERTTEXT8",
+        data: {item: 'U8', type: 'unique', trait: 'INSERTTRAIT8', facet: 'INSERTFACET8'}},
+      { questions: "INSERTTEXT9",
+        data: {item: 'U9', type: 'unique', trait: 'INSERTTRAIT9', facet: 'INSERTFACET9'}},
+      { questions: "INSERTTEXT10",
+        data: {item: 'U10', type: 'unique', trait: 'INSERTTRAIT10', facet: 'INSERTFACET10'}},
+      { questions: "INSERTTEXT11",
+        data: {item: 'U11', type: 'unique', trait: 'INSERTTRAIT11', facet: 'INSERTFACET11'}},
+      { questions: "INSERTTEXT12",
+        data: {item: 'U12', type: 'unique', trait: 'INSERTTRAIT12', facet: 'INSERTFACET12'}},
+      { questions: "INSERTTEXT13",
+        data: {item: 'U13', type: 'unique', trait: 'INSERTTRAIT13', facet: 'INSERTFACET13'}},
+      { questions: "INSERTTEXT14",
+        data: {item: 'U14', type: 'unique', trait: 'INSERTTRAIT14', facet: 'INSERTFACET14'}},
+      { questions: "INSERTTEXT1415",
+        data: {item: 'U15', type: 'unique', trait: 'INSERTTRAIT15', facet: 'INSERTFACET15'}}
+    ];
+
+    var diamonds_items = [
+      { questions: "Work had to be done.",
+        data: {item: 'D1', type: 'DIAMONDS', trait: 'NA', facet: 'Duty'}},
+      { questions: "Deep thinking was required.",
+        data: {item: 'D2', type: 'DIAMONDS', trait: 'NA', facet: 'Intellect'}},
+      { questions: "Somebody was being threatened, accused, or criticized.",
+        data: {item: 'D3', type: 'DIAMONDS', trait: 'NA', facet: 'Adversity'}},
+      { questions: "Potential romantic partners were present.",
+        data: {item: 'D4', type: 'DIAMONDS', trait: 'NA', facet: 'Mating'}},
+      { questions:  "The situation was pleasant.",
+        data: {item: 'D5', type: 'DIAMONDS', trait: 'NA', facet: 'pOsitivity'}},
+      { questions: "The situation contained negative feelings (e.g., stress, anxiety, guilt, etc.).",
+        data: {item: 'D6', type: 'DIAMONDS', trait: 'NA', facet: 'Negativity'}},
+      { questions: "Somebody was being deceived.",
+        data: {item: 'D7', type: 'DIAMONDS', trait: 'NA', facet: 'Deception'}},
+      { questions: "Social interactions were possible or required.",
+        data: {item: 'D8', type: 'DIAMONDS', trait: 'NA', facet: 'Sociability'}},
+    ];
+
+    var emo_items = [
+      {questions: "Felt angry.",
+       data: {item: 'E_angry', type: 'emotion', trait:'negative', facet: 'angry'}},
+      {questions: "Felt happy.",
+       data: {item: 'E_happy', type: 'emotion', trait:'positive', facet: 'happy'}},
+      {questions: "Felt afraid.",
+       data: {item: 'E_afraid', type: 'emotion', trait:'negative', facet: 'afraid'}},
+      { questions: "Often felt sad.",
+       data: {item: 'N5', type: 'BFI2', trait: 'neuroticism', facet: 'Depression'}},
+      { questions: "Worried a lot.",
+        data: {item: 'N2', type: 'BFI2', trait: 'neuroticism', facet: 'Anxiety'}},
+      {questions: "Felt excited.",
+       data: {item: 'E_excited', type: 'emotion', trait:'positive', facet: 'excited'}},
+      {questions: "Felt proud.",
+       data: {item: 'E_proud', type: 'emotion', trait: 'positive', facet:'proud'}},
+      {questions: "Felt guilty.",
+       data: {item: 'E_guilty', type: 'emotion', trait: 'negative', facet:'guilty'}},
+      {questions: "Was attentive.",
+       data: {item: 'E_attentive', type: 'emotion', trait: 'positive', facet:'attentive'}},
+      {questions: "Felt content.",
+       data: {item: 'E_content', type: 'emotion', trait: 'positive', facet:'content'}},
+      {questions: "Felt purposeful.",
+       data: {item: 'E_purposeful', type: 'emotion', trait: 'neutral', facet:'purposeful'}},
+      {questions: "Was goal-directed.",
+       data: {item: 'E_goaldir', type: 'emotion', trait: 'neutral', facet:'goaldir'}}
+    ];
+
+  var extra_items_sampled =
+    jsPsych.randomization.sampleWithoutReplacement(Extra_Qs, 2);
+  var agree_items_sampled =
+    jsPsych.randomization.sampleWithoutReplacement(Agree_Qs, 2);
+  var consc_items_sampled =
+    jsPsych.randomization.sampleWithoutReplacement(Consc_Qs, 2);
+  var neuro_items_sampled =
+    jsPsych.randomization.sampleWithoutReplacement(Neuro_Qs, 2);
+  var openn_items_sampled =
+    jsPsych.randomization.sampleWithoutReplacement(Openn_Qs, 2);
+
+  // var pers_items_sampled = [
+  //   jsPsych.randomization.sample(Extra_Qs, 3, false),
+  //   jsPsych.randomization.sample(Agree_Qs, 3, false),
+  //   jsPsych.randomization.sample(Consc_Qs, 3, false),
+  //   jsPsych.randomization.sample(Neuro_Qs, 3, false),
+  //   jsPsych.randomization.sample(Openn_Qs, 3, false),
+  // ];
+  // var pers_items_sampled = pers_items_sampled.concat(diamonds_items);
+var pers_items_sampled = extra_items_sampled.concat(agree_items_sampled,
+consc_items_sampled, neuro_items_sampled, openn_items_sampled, emo_items);
+// var pers_items_sampled = extra_items_sampled.concat(agree_items_sampled,
+// consc_items_sampled, neuro_items_sampled, openn_items_sampled, emo_items, unique_Qs);
+
+  var sit_items = [
+    { questions: "Was studying or doing school work.",
+      data: {item: 'sit_01', trait: 'study', type: 'situation', facet: 'NA'}},
+    { questions: "Had an argument / disagreement with friend",
+      data: {item: 'sit_02', trait: 'argFrnd', type: 'situation', facet: 'NA'}},
+    { questions: "Had an argument / disagreement with family",
+      data: {item: 'sit_03', trait: 'argFam', type: 'situation', facet: 'NA'}},
+    { questions: "Interacted with a friend",
+      data: {item: 'sit_04', trait: 'intFrnd', type: 'situation', facet: 'NA'}},
+    { questions: "Interacted with family",
+      data: {item: 'sit_05', trait: 'intFam', type: 'situation', facet: 'NA'}},
+    { questions: "Lost something",
+      data: {item: 'sit_06', trait: 'lostSmthng', type: 'situation', facet: 'NA'}},
+    { questions: "Was late for something",
+      data: {item: 'sit_07', trait: 'late', type: 'situation', facet: 'NA'}},
+    { questions: "Forgot something",
+      data: {item: 'sit_08', trait: 'frgtSmthng', type: 'situation', facet: 'NA'}},
+    { questions: "Was bored with school work",
+      data: {item: 'sit_09', trait: 'brdSWk', type: 'situation', facet: 'NA'}},
+    { questions: "Was excited by school work",
+      data: {item: 'sit_10', trait: 'excSWk', type: 'situation', facet: 'NA'}},
+    { questions: "Was anxious about school work",
+      data: {item: 'sit_11', trait: 'AnxSWk', type: 'situation', facet: 'NA'}},
+    { questions: "Felt tired",
+      data: {item: 'sit_12', trait: 'tired', type: 'situation', facet: 'NA'}},
+    { questions: "Felt sick",
+      data: {item: 'sit_13', trait: 'sick', type: 'situation', facet: 'NA'}},
+    { questions: "Did poorly on an assignment or exam",
+      data: {item: 'sit_14', trait: 'poorGrade', type: 'situation', facet: 'NA'}},
+    {questions: "Was sleeping",
+      data: {item: 'sit_15', trait: 'sleeping', type: 'situation', facet:'NA'}},
+    {questions: "Was in class",
+      data: {item: 'sit_16', trait: 'class', type: 'situation', facet:'NA'}},
+    {questions: "Was listening to music",
+      data: {item: 'sit_17', trait: 'music', type: 'situation', facet:'NA'}},
+    {questions: "Was on the Internet",
+      data: {item: 'sit_18', trait: 'internet', type: 'situation', facet:'NA'}},
+    {questions: "Was watching TV",
+      data: {item: 'sit_19', trait: 'TV', type: 'situation', facet:'NA'}},
+    {questions: "Procrastinated",
+      data: {item: 'sit_20', trait: 'prcrst', type: 'situation', facet:'NA'}},
+    {questions: "Felt lonely",
+      data: {item: 'sit_21', trait: 'lonely', type: 'situation', facet:'NA'}}
+  ];
+
+  var sit_items_shuffled = jsPsych.randomization.shuffle(sit_items);
+
+  var diamonds_items_shuffled = jsPsych.randomization.shuffle(diamonds_items);
+
+  var pers_items_sampled_shuffled = jsPsych.randomization.shuffle(pers_items_sampled);
+
+
+  /* define likert scale */
+  var scale1 = ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"];
+  pers_q_shuffled = [];
+  item_shuffled = [];
+  trait_shuffled = [];
+  facet_shuffled = [];
+  type_shuffled = [];
+  for (var i = 0; i<pers_items_sampled_shuffled.length; i++){
+    pers_q_shuffled[i] = {prompt: pers_items_sampled_shuffled[i].questions,
+                            labels: scale1,
+                            required: false};
+    item_shuffled = item_shuffled.concat(pers_items_sampled_shuffled[i].data.item)
+    trait_shuffled = trait_shuffled.concat(pers_items_sampled_shuffled[i].data.trait)
+    facet_shuffled = facet_shuffled.concat(pers_items_sampled_shuffled[i].data.facet)
+    type_shuffled = type_shuffled.concat(pers_items_sampled_shuffled[i].data.type)
+  };
+  console.log(item_shuffled);
+
+  /* define likert scale */
+  var scale2 = ["Not at all", "", "Totally"];
+  diamonds_q_shuffled = [];
+  diamonds_item_shuffled = [];
+  diamonds_trait_shuffled = [];
+  diamonds_facet_shuffled = [];
+  diamonds_type_shuffled = [];
+  for (var i = 0; i<diamonds_items_shuffled.length; i++){
+    diamonds_q_shuffled[i] = {prompt: diamonds_items_shuffled[i].questions,
+                            labels: scale2,
+                            required: false};
+    diamonds_item_shuffled = diamonds_item_shuffled.concat(diamonds_items_shuffled[i].data.item)
+    diamonds_trait_shuffled = diamonds_trait_shuffled.concat(diamonds_items_shuffled[i].data.trait)
+    diamonds_facet_shuffled = diamonds_facet_shuffled.concat(diamonds_items_shuffled[i].data.facet)
+    diamonds_type_shuffled = diamonds_type_shuffled.concat(diamonds_items_shuffled[i].data.type)
+  }
+  console.log(diamonds_q_shuffled);
+
+  sit_q_shuffled = [];
+  sit_item_shuffled = [];
+  sit_trait_shuffled = [];
+  sit_facet_shuffled = [];
+  sit_type_shuffled = [];
+  var scale3 = ["Occurred"];
+  for (var i = 0; i<sit_items_shuffled.length; i++){
+    sit_q_shuffled[i] = {prompt: sit_items_shuffled[i].questions,
+                            labels: scale3,
+                            required: false};
+    sit_item_shuffled = sit_item_shuffled.concat(sit_items_shuffled[i].data.item)
+    sit_trait_shuffled = sit_trait_shuffled.concat(sit_items_shuffled[i].data.trait)
+    sit_facet_shuffled = sit_facet_shuffled.concat(sit_items_shuffled[i].data.facet)
+    sit_type_shuffled = sit_type_shuffled.concat(sit_items_shuffled[i].data.type)
+  }
+
+  // instructions block
+  var instructions_block = {
+    type: 'html-button-response',
+    stimulus: '<p></p>',
+    choices: ['continue'],
+    prompt: '<p>Press "continue" to begin.</p>'
+  };
+
+  // personality block
+  var pers_block = {
+    type: 'survey-matrix',
+    preamble: "<h3>Please respond to each question as characteristic of you during whatever you were just doing.</h3>",
+    questions: pers_q_shuffled,
+    data: {item: item_shuffled, trait: trait_shuffled, facet: facet_shuffled, type: type_shuffled}
+    //timeline: pers_items_sampled_shuffled
+  };
+
+  // DIAMONDS block
+  var diamonds_block = {
+    type: 'survey-matrix',
+    preamble: "<h3>Indicate which of the following are true about what you were just doing.</h3>",
+    questions: diamonds_q_shuffled,
+    data: {item: diamonds_item_shuffled, trait: diamonds_trait_shuffled, facet: diamonds_facet_shuffled, type: diamonds_type_shuffled}
+    //timeline: diamonds_items_shuffled
+  };
+
+  // situations block
+  var sit_block = {
+    type: 'survey-checkbox',
+    preamble: "<h3>Indicate which of the following are true about what you were just doing.</h3>",
+    questions: sit_q_shuffled,
+    data: {item: sit_item_shuffled, trait: sit_trait_shuffled, facet: sit_facet_shuffled, type: sit_type_shuffled}
+    //timeline: diamonds_items_shuffled
+  };
+
+
+  // var beh_block = {
+  //   type: 'survey-checkbox',
+  //   preamble: "<h3>Indicate which of the following are true about what you were just doing.</h3>",
+  //   questions: beh_q_shuffled,
+  //   data: {item: beh_item_shuffled, trait: beh_trait_shuffled, facet: beh_facet_shuffled, type: beh_type_shuffled}
+  //   // data: {your_variable_name: beh_items_shuffled}
+  // };
+
+// console.log(random_order);
+
+//   var scene = [
+//     ["img/circle.png", "img/circle.png", "img/circle.png", 0, 0],
+//     [0, 0, "img/circle.png", "img/circle.png", "img/circle.png"],
+//     ["img/circle.png", 0, 0, "img/circle.png", "img/circle.png"],
+//     ["img/circle.png", "img/circle.png", "img/circle.png", 0, 0],
+//     [0, 0, "img/circle.png", "img/circle.png", "img/circle.png"]
+//   ]
+//
+//
+//   // create vsl block for jspsych
+//   var vsl_block = {
+//       type: 'vsl-grid-scene',
+//       stimuli: scene,
+//       timing_duration: 10000
+//   };
+//
+//   var block = {
+//     type: 'image-button-response',
+//     stimulus: 'img/circle.png',
+//     choices: ['Happy', 'Sad'],
+//     prompt: "<p>What emotion is this person showing?</p>"
+// };
+
+  var end_block = {
+    type: 'instructions',
+    pages: ["<br><br><p>Thank you. Your response has been recorded.</p>"],
+	   show_clickable_nav: false
+  };
+
+  // var start_time = jsPsych.startTime();
+  var d = new Date();
+  var start_month = d.getMonth() + 1;
+  var start_day = d.getDate();
+  var start_hour = d.getHours();
+  var start_min = d.getMinutes();
+  var start_time = start_month+"-"+start_day+"_"+start_hour+"_"+start_min
+  // var start_time = Date.now();
+  var save_data = {
+    type: 'call-function',
+    func: function(){saveData(SID_name+"_"+start_month+"-"+start_day+"_"+start_hour+"_"+start_min+".csv",
+      jsPsych.data.get().csv())}
+}
+
+// record the condition assignment in the jsPsych data
+// this adds a property called 'subject' and a property called 'condition' to every trial
+  jsPsych.data.addProperties({
+    subject: SID_name,
+    date: d.toLocaleDateString(),
+    time: d.toLocaleTimeString(),
+    browser: navigator.appCodeName,
+    browser_version: navigator.appVersion,
+    platform: navigator.platform
+  });
+
+  /* create experiment timeline array */
+  var timeline = [];
+  //timeline.push(subject_page);
+  //timeline.push(block);
+  //timeline.push(vsl_block);
+  timeline.push(instructions_block);
+  timeline.push(pers_block);
+  timeline.push(sit_block);
+  timeline.push(diamonds_block);
+  // timeline.push(beh_block);
+  timeline.push(save_data);
+  timeline.push(end_block);
+
+  /* start the experiment */
+  // jsPsych.init({
+  //   timeline: timeline
+  // });
+
+var file = SID_name+"_"+start_month+"-"+start_day+"_"+start_hour+".csv";
+
+  function saveData(filename, filedata){
+  	$.ajax({
+  		type:'post',
+  		cache: false,
+  		url: 'save_data.php', // this is the path to the above PHP script
+      //url: https://script.google.com/macros/s/AKfycbzV--xTooSkBLufMs4AnrCTdwZxVNtycTE4JNtaCze2UijXAg8/exec
+  		data: {filename: filename, filedata: filedata}})
+  }
+  var currentTimeMS = Date.now();
+  jsPsych.init({
+  	// display_element: $('#jspsych-target'),
+  	timeline: timeline
+  	// on_finish: function(){saveData(SID_name+"_"+start_month+"-"+start_day+"_"+start_hour+".csv",
+    //   jsPsych.data.dataAsCSV())}
+  });
+</script>
+</html>
